@@ -1,0 +1,18 @@
+#Python
+__pycache__/
+
+#Mac
+.DS_Store
+
+#Environment
+*venv/
+.env.development
+
+#Code editors
+.vscode/
+.idea/
+tools
+
+#Coverage.py
+.coverage
+coverage_results/*
