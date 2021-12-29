@@ -1,10 +1,6 @@
 from django.contrib import admin
 
-from .models import Ingredient, Recipe, RecipeIngredient
-
-
-class IngredientAdmin(admin.ModelAdmin):
-    list_display = ('name', 'formatted_cost')
+from .models import Recipe, RecipeIngredient
 
 
 class IngredientInline(admin.TabularInline):
@@ -13,8 +9,8 @@ class IngredientInline(admin.TabularInline):
 
 
 class RecipeAdmin(admin.ModelAdmin):
+    list_display = ('name', 'formatted_total_cost')
     inlines = [IngredientInline]
 
 
-admin.site.register(Ingredient, IngredientAdmin)
 admin.site.register(Recipe, RecipeAdmin)
