@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ ingredient.name }} - An ingredient on {{ block.super }}{% endblock %}
+
+{% block header %}{% include "header.html" with active_item="ingredients" %}{% endblock header %}
+
+{% block breadcrumb %}
+{{ block.super }}
+<li class="breadcrumb-item"><a href="{% url 'ingredients:index' %}">Ingredients</a></li>
+<li class="breadcrumb-item active" aria-current="page">{{ ingredient.name }}</li>
+{% endblock breadcrumb %}
+
+{% block content %}
+<h1>{{ ingredient.name }} <small>#{{ ingredient.id }}</small></h1>
+<p>
+    <strong>name:</strong> {{ ingredient.name }}<br>
+    <strong>base amount:</strong> {{ ingredient.base_amount }} {{ ingredient.base_measurement_unit }}<br>
+    <strong>cost/amount:</strong> {{ ingredient.formatted_cost }}<br>
+</p>
+{% endblock %}

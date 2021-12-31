@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ recipe.name }} - A recipe on {{ block.super }}{% endblock %}
+
+{% block header %}{% include "header.html" with active_item="recipes" %}{% endblock header %}
+
+{% block breadcrumb %}
+{{ block.super }}
+<li class="breadcrumb-item"><a href="{% url 'recipes:index' %}">Recipes</a></li>
+<li class="breadcrumb-item active" aria-current="page">{{ recipe.name }}</li>
+{% endblock breadcrumb %}
+
+{% block content %}
+<h1>{{ recipe.name }} <small>#{{ recipe.id }}</small></h1>
+<p>
+    <strong>name:</strong> {{ recipe.name }}<br>
+    <strong>total cost:</strong> {{ recipe.formatted_total_cost }}<br>
+</p>
+<ul>
+    {% for ingredient in recipe.ingredients.all %}
+    <li>
+        {{ ingredient.recipeingredient_set.get.amount }}
+        {{ ingredient.recipeingredient_set.get.measurement_unit }} of
+        <a href="{% url 'ingredients:detail' ingredient.id %}">{{ ingredient.name }}</a>
+    </li>
+    {% endfor %}
+</ul>
+{% endblock %}

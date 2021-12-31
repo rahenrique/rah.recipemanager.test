@@ -27,4 +27,5 @@ class Ingredient(models.Model):
 
     @admin.display(description='Cost/amount')
     def formatted_cost(self) -> str:
-        return f'€ {self.cost_per_base_amount}/{self.base_amount} {self.base_measurement_unit}'
+        return f'{self.cost_per_base_amount} EUR / \
+            {self.base_amount} {self.base_measurement_unit}'
