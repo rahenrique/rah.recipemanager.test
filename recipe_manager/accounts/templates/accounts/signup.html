@@ -1,0 +1,52 @@
+{% extends 'base.html' %}
+
+{% block title %}Sign-up for {{ block.super }}{% endblock %}
+
+{% block header %}{% include "header.html" %}{% endblock header %}
+
+{% block breadcrumb %}
+{{ block.super }}
+<li class="breadcrumb-item active" aria-current="page">Sign-up</li>
+{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+    {% if success %}
+    <div class="alert alert-success" role="alert">{{ success }}</div>
+    {% endif %}
+
+    {% if error %}
+    <div class="alert alert-danger" role="alert">{{ error }}</div>
+    {% endif %}
+    <div class="col-6">
+
+        <h1>Sign-up now</h1>
+        <p>Create a free account to be able to edit ingredients and recipes</p>
+        
+        <form method="POST" action="{% url 'accounts:signup' %}" class="border rounded-3 p-3">
+            
+            {% csrf_token %}
+
+            <div class="form-floating mb-3">
+                <input type="text" class="form-control" id="username_input" name="username"
+                    placeholder="someuniqueusername" required value="rah">
+                <label for="username_input">Unique username</label>
+            </div>
+
+            <div class="form-floating mb-3">
+                <input type="password" class="form-control" id="password_input" name="password"
+                    placeholder="Some Secure Password" required value="rah123456">
+                <label for="password_input">Secure Password</label>
+            </div>
+
+            <div class="form-floating mb-3">
+                <input type="password" class="form-control" id="confirm_password_input" name="confirm_password"
+                    placeholder="Some Secure Password" required value="rah123456">
+                <label for="confirm_password_input">Confirm Password</label>
+            </div>
+
+            <input type="submit" role="button" class="btn btn-success" value="Create Account">
+        </form>
+    </div>
+</div>
+{% endblock %}
