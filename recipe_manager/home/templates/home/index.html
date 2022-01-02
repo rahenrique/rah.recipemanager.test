@@ -1,0 +1,77 @@
+{% extends 'base.html' %}
+
+{% block title %}Latest recipes on {{ block.super }}{% endblock %}
+
+{% block header %}{% include "header.html" with active_item="home" %}{% endblock header %}
+
+{% block breadcrumb %}
+<li class="breadcrumb-item active" aria-current="page">Home</li>
+{% endblock breadcrumb %}
+
+{% block content %}
+<h1>Latest Recipes</h1>
+{% if newest_recipes %}
+<table class="table table-striped table-hover">
+    <thead>
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">Name</th>
+            <th scope="col">Total Cost</th>
+            <th scope="col">&nbsp;</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for recipe in newest_recipes %}
+        <tr>
+            <th scope="row">{{ recipe.id }}</th>
+            <td>{{ recipe.name }}</td>
+            <td>{{ recipe.formatted_total_cost }}</td>
+            <td class="text-end">
+                <div class="btn-group" role="group" aria-label="Recipe management">
+                    <a href="{% url 'recipes:detail' recipe.id %}" role="button"
+                        class="btn btn-sm btn-info">Detail</a>
+                    <a href="{% url 'recipes:detail' recipe.id %}" role="button"
+                        class="btn btn-sm btn-warning">Edit</a>
+                </div>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% else %}
+<p>No recipes are available.</p>
+{% endif %}
+<hr>
+<h1>Latest Ingredients</h1>
+{% if newest_ingredients %}
+<table class="table table-striped table-hover">
+    <thead>
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">Name</th>
+            <th scope="col">Cost/amount</th>
+            <th scope="col">&nbsp;</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for ingredient in newest_ingredients %}
+        <tr>
+            <th scope="row">{{ ingredient.id }}</th>
+            <td>{{ ingredient.name }}</td>
+            <td>{{ ingredient.formatted_cost }}</td>
+            <td class="text-end">
+                <div class="btn-group" role="group" aria-label="Ingredient management">
+                    <a href="{% url 'ingredients:detail' ingredient.id %}" role="button"
+                        class="btn btn-sm btn-info">Detail</a>
+                    <a href="{% url 'ingredients:detail' ingredient.id %}" role="button"
+                        class="btn btn-sm btn-warning">Edit</a>
+                </div>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% else %}
+<p>No ingredients are available.</p>
+{% endif %}
+{% endblock %}
