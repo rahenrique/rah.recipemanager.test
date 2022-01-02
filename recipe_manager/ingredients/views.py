@@ -6,11 +6,11 @@ from ingredients.models import Ingredient
 
 class IndexView(generic.ListView):
     template_name = 'ingredients/index.html'
-    context_object_name = 'newest_ingredients'
+    context_object_name = 'all_ingredients'
 
     def get_queryset(self):
-        """Return the newest ingredients."""
-        return Ingredient.objects.order_by('-id')[:25]
+        """Return all ingredients."""
+        return Ingredient.objects.order_by('name')[:25]
 
 
 class DetailView(generic.DetailView):
