@@ -9,9 +9,13 @@ def user_login(request):
     if request.method == 'POST':
         username = request.POST['username']
         password = request.POST['password']
+        next = request.POST['next'] if 'next' in request.POST else None
+
         user = authenticate(username=username, password=password)
         if user is not None:
             login(request, user)
+            if next is not None:
+                return redirect(next)
             return redirect(reverse('home:home'))
         else:
             return render(request, 'accounts/login.html', {'error': 'The username and password don\'t match'})

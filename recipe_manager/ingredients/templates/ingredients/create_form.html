@@ -1,0 +1,59 @@
+{% extends 'base.html' %}
+
+{% block title %}New ingredient on {{ block.super }}{% endblock %}
+
+{% block header %}{% include "header.html" with active_item="ingredients" %}{% endblock header %}
+
+{% block breadcrumb %}
+{{ block.super }}
+<li class="breadcrumb-item"><a href="{% url 'ingredients:index' %}">Ingredients</a></li>
+<li class="breadcrumb-item active" aria-current="page">New Ingredient</li>
+{% endblock breadcrumb %}
+
+{% block content %}
+
+<div class="row justify-content-center">
+    {% if error %}
+    <div class="alert alert-danger" role="alert">{{ error }}</div>
+    {% endif %}
+    <div class="col-6">
+
+        <h1>New Ingredient</h1>
+        <p>&nbsp;</p>
+        
+        <form method="POST" action="{% url 'ingredients:create' %}" class="border rounded-3 p-3">
+            
+            {% csrf_token %}
+
+            <div class="form-floating mb-3">
+                <input type="text" class="form-control" id="name_input" name="name"
+                    placeholder="Ingredient's name" required>
+                <label for="name_input">Ingredient's name</label>
+            </div>
+
+            <div class="form-floating mb-3">
+                <input type="text" class="form-control" id="article_number_input" name="article_number"
+                    placeholder="Ingredient's article number" required>
+                <label for="article_number_input">Ingredient's article number</label>
+            </div>
+
+            <input type="submit" role="button" class="btn btn-success" value="Create Ingredient">
+        </form>
+    </div>
+</div>
+
+
+
+
+
+
+
+
+<h1>{{ ingredient.name }} <small>#{{ ingredient.id }}</small></h1>
+<p>
+    <strong>name:</strong> {{ ingredient.name }}<br>
+    <strong>article number:</strong> {{ ingredient.article_number }}<br>
+    <strong>base amount:</strong> {{ ingredient.base_amount }} {{ ingredient.base_measurement_unit }}<br>
+    <strong>cost/amount:</strong> {{ ingredient.formatted_cost }}<br>
+</p>
+{% endblock %}

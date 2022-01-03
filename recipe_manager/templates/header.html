@@ -33,7 +33,7 @@
                 <li class="dropdown-item">Hello, {{ user.username }}</li>
                 <li><hr class="dropdown-divider"></li>
                 <li><a class="dropdown-item" href="#">New recipe...</a></li>
-                <li><a class="dropdown-item" href="#">New ingredient...</a></li>
+                <li><a class="dropdown-item" href="{% url 'ingredients:create' %}">New ingredient...</a></li>
                 <li><hr class="dropdown-divider"></li>
                 <li><a class="dropdown-item" href="{% url 'admin:index' %}">Site Administration</a></li>
                 <li><a class="dropdown-item" href="{% url 'accounts:signout' %}">Sign out</a></li>

@@ -31,13 +31,25 @@
                 <div class="btn-group" role="group" aria-label="Ingredient management">
                     <a href="{% url 'ingredients:detail' ingredient.id %}" role="button"
                         class="btn btn-sm btn-info">Detail</a>
+                    {% if user.is_authenticated %}
                     <a href="{% url 'ingredients:detail' ingredient.id %}" role="button"
                         class="btn btn-sm btn-warning">Edit</a>
+                    {% endif %}
                 </div>
             </td>
         </tr>
         {% endfor %}
     </tbody>
+    <tfoot>
+        <tr>
+            <td colspan="4" class="text-end">
+                {% if user.is_authenticated %}
+                <a href="{% url 'ingredients:create' %}" role="button"
+                        class="btn btn-sm btn-success">Create Ingredient</a>
+                {% endif %}
+            </td>
+        </tr>
+    </tfoot>
 </table>
 {% else %}
 <p>No ingredients are available.</p>

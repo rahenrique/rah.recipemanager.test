@@ -23,6 +23,10 @@
             
             {% csrf_token %}
 
+            {% if request.GET.next %}
+            <input type="hidden" name="next" value="{{ request.GET.next }}">
+            {% endif %}
+
             <div class="form-floating mb-3">
                 <input type="text" class="form-control" id="username_input" name="username"
                     placeholder="someuniqueusername" required value="rah">

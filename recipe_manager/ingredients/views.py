@@ -1,5 +1,6 @@
-# from django.shortcuts import get_object_or_404, render
+from django.shortcuts import render
 from django.views import generic
+from django.contrib.auth.decorators import login_required
 
 from ingredients.models import Ingredient
 
@@ -18,8 +19,16 @@ class DetailView(generic.DetailView):
     template_name = 'ingredients/detail.html'
 
 
+@login_required
 def create(request):
-    pass
+    if request.method == 'POST':
+        name = request.POST['name']
+        article_number = request.POST['article_number']
+        Ingredient.objects.create({'name': name, 'article_number': article_number})
+        # return render(request, 'ingredients/create_form.html')
+        return
+    else:
+        return render(request, 'ingredients/create_form.html')
 
 
 # def edit(request, pk):

@@ -11,9 +11,10 @@
 {% endblock breadcrumb %}
 
 {% block content %}
-<h1>{{ ingredient.name }} <small>#{{ ingredient.id }}</small></h1>
+<h1>{{ ingredient.name }} <small class="text-muted">#{{ ingredient.article_number }}</small></h1>
 <p>
     <strong>name:</strong> {{ ingredient.name }}<br>
+    <strong>article number:</strong> {{ ingredient.article_number }}<br>
     <strong>base amount:</strong> {{ ingredient.base_amount }} {{ ingredient.base_measurement_unit }}<br>
     <strong>cost/amount:</strong> {{ ingredient.formatted_cost }}<br>
 </p>

@@ -23,20 +23,25 @@
     <tbody>
         {% for recipe in newest_recipes %}
         <tr>
-            <th>{{ recipe.id }}</th>
+            <td>{{ recipe.id }}</td>
             <td>{{ recipe.name }}</td>
             <td class="text-end">{{ recipe.formatted_total_cost }}</td>
             <td class="text-end">
                 <div class="btn-group" role="group" aria-label="Recipe management">
                     <a href="{% url 'recipes:detail' recipe.id %}" role="button"
                         class="btn btn-sm btn-info">Detail</a>
-                    <a href="{% url 'recipes:detail' recipe.id %}" role="button"
-                        class="btn btn-sm btn-warning">Edit</a>
                 </div>
             </td>
         </tr>
         {% endfor %}
     </tbody>
+    <tfoot>
+        <tr>
+            <td colspan="4">
+                <a href="{% url 'recipes:index' %}" role="button">See all the recipes</a>
+            </td>
+        </tr>
+    </tfoot>
 </table>
 {% else %}
 <p>No recipes are available.</p>
@@ -63,13 +68,18 @@
                 <div class="btn-group" role="group" aria-label="Ingredient management">
                     <a href="{% url 'ingredients:detail' ingredient.id %}" role="button"
                         class="btn btn-sm btn-info">Detail</a>
-                    <a href="{% url 'ingredients:detail' ingredient.id %}" role="button"
-                        class="btn btn-sm btn-warning">Edit</a>
                 </div>
             </td>
         </tr>
         {% endfor %}
     </tbody>
+    <tfoot>
+        <tr>
+            <td colspan="4">
+                <a href="{% url 'ingredients:index' %}" role="button">See all the ingredients</a>
+            </td>
+        </tr>
+    </tfoot>
 </table>
 {% else %}
 <p>No ingredients are available.</p>

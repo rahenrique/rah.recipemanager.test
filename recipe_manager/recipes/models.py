@@ -1,4 +1,5 @@
 from django.contrib import admin
+from django.contrib.auth.models import User
 from django.db import models
 from common.services import convert_unit, value_to_unit, symbol_to_unit
 
@@ -14,6 +15,9 @@ class Recipe(models.Model):
     name = models.CharField(verbose_name='Recipe name', max_length=256)
     ingredients = models.ManyToManyField(
         Ingredient, verbose_name='Recipe ingredients', through='RecipeIngredient')
+    author = models.ForeignKey(User, null=True, on_delete=models.SET_NULL, verbose_name='Recipe author')
+    created_at = models.DateTimeField(auto_now=False, auto_now_add=True, verbose_name='Recipe created at')
+    updated_at = models.DateTimeField(auto_now=True, auto_now_add=False, verbose_name='Recipe last updated at')
 
     def __str__(self) -> str:
         return self.name
