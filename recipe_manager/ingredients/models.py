@@ -1,12 +1,14 @@
 from django.contrib import admin
 from django.db import models
 
+from common.measurement.models.units import Centiliter, Gram, Kilogram, Liter
+
 
 class MeasurementUnits(models.TextChoices):
-    GRAMS = 'g', 'grams'
-    KILOGRAMS = 'kg', 'kilograms'
-    CENTILITER = 'cl', 'centiliter'
-    LITER = 'l', 'liter'
+    GRAMS = Gram.symbol, 'grams'
+    KILOGRAMS = Kilogram.symbol, 'kilograms'
+    CENTILITER = Centiliter.symbol, 'centiliter'
+    LITER = Liter.symbol, 'liter'
 
 
 class Ingredient(models.Model):
@@ -16,7 +18,8 @@ class Ingredient(models.Model):
         verbose_name_plural = 'Ingredients'
 
     name = models.CharField(verbose_name='Ingredient name', max_length=256)
-    article_number = models.CharField(verbose_name='Article number', max_length=24)
+    article_number = models.CharField(
+        verbose_name='Article number', max_length=24)
     base_measurement_unit = models.CharField(
         verbose_name='Measurement Unit', max_length=2, choices=MeasurementUnits.choices)
     base_amount = models.FloatField(verbose_name='Buying Amount', default=0)
