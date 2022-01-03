@@ -1,3 +1,4 @@
+from django.db.models import Q
 from django.shortcuts import redirect, render
 from django.views import generic
 from django.contrib.auth.decorators import login_required
@@ -10,8 +11,15 @@ class IndexView(generic.ListView):
     context_object_name = 'all_ingredients'
 
     def get_queryset(self):
-        """Return all ingredients."""
-        return Ingredient.objects.order_by('name')[:25]
+        """Return all ingredients, optionally filtered by name or """
+        query = self.request.GET.get('q')
+        if query:
+            # return Ingredient.objects.filter(name__icontains=query).order_by('name')
+            return Ingredient.objects.filter(
+                Q(name__icontains=query) | Q(article_number=query)
+            ).order_by('name')
+        else:
+            return Ingredient.objects.all().order_by('name')
 
 
 class DetailView(generic.DetailView):

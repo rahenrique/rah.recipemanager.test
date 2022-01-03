@@ -12,7 +12,6 @@
 
 {% block content %}
 <h1>{{ recipe.name }} <small class="text-muted">#{{ recipe.id }}</small></h1>
-
 <table class="table table-sm table-striped table-hover">
     <thead>
         <tr>
@@ -40,4 +39,8 @@
         </tr>
     </tfoot>
 </table>
+<p>
+    <em>posted by</em> {{ recipe.author }} <em>on</em> {{ recipe.created_at }}<br>
+    <em>last updated at</em> {{ recipe.updated_at }}
+</p>
 {% endblock %}
