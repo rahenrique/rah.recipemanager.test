@@ -30,22 +30,13 @@ class BaseUnit:
 class MassUnit(BaseUnit):
     type = UnitType.MASS
 
-    def __init__(self, value) -> None:
-        super().__init__(value)
-
 
 class VolumeUnit(BaseUnit):
     type = UnitType.VOLUME
 
-    def __init__(self, value) -> None:
-        super().__init__(value)
-
 
 class Kilogram(MassUnit):
     symbol = 'Kg'
-
-    def __init__(self, value) -> None:
-        super().__init__(value)
 
     def _from_base(self, value) -> BaseUnit:
         return __class__(value)
@@ -57,9 +48,6 @@ class Kilogram(MassUnit):
 class Gram(MassUnit):
     symbol = 'g'
 
-    def __init__(self, value) -> None:
-        super().__init__(value)
-
     def _from_base(self, value) -> BaseUnit:
         return __class__(value * 1000)
 
@@ -69,9 +57,6 @@ class Gram(MassUnit):
 
 class Tonne(MassUnit):
     symbol = 't'
-
-    def __init__(self, value) -> None:
-        super().__init__(value)
 
     def _from_base(self, value) -> BaseUnit:
         return __class__(value / 1000)
@@ -83,9 +68,6 @@ class Tonne(MassUnit):
 class Liter(VolumeUnit):
     symbol = 'L'
 
-    def __init__(self, value) -> None:
-        super().__init__(value)
-
     def _from_base(self, value) -> BaseUnit:
         return __class__(value)
 
@@ -96,9 +78,6 @@ class Liter(VolumeUnit):
 class Centiliter(VolumeUnit):
     symbol = 'cL'
 
-    def __init__(self, value) -> None:
-        super().__init__(value)
-
     def _from_base(self, value) -> BaseUnit:
         return __class__(value * 100)
 
@@ -108,9 +87,6 @@ class Centiliter(VolumeUnit):
 
 class Milliliter(VolumeUnit):
     symbol = 'mL'
-
-    def __init__(self, value) -> None:
-        super().__init__(value)
 
     def _from_base(self, value) -> BaseUnit:
         return __class__(value * 1000)
