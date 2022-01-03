@@ -66,7 +66,7 @@ To run the unit tests provided with the application, run the following command o
 
 ```bash
 # This will run all tests inside the Django apps
-(.venv)$ python manage.py test
+(.venv)$ python3 recipe_manager/manage.py test
 
 # Currently, there is tests only for the common app, to ensure the measurement unit conversions are correct
 ```
