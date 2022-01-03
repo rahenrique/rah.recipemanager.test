@@ -15,18 +15,18 @@
 <table class="table table-striped table-hover">
     <thead>
         <tr>
-            <th scope="col">#</th>
-            <th scope="col">Name</th>
-            <th scope="col">Cost/amount</th>
-            <th scope="col">&nbsp;</th>
+            <th>#</th>
+            <th>Name</th>
+            <th class="text-end">Cost/amount</th>
+            <th>&nbsp;</th>
         </tr>
     </thead>
     <tbody>
         {% for ingredient in all_ingredients %}
         <tr>
-            <th scope="row">{{ ingredient.id }}</th>
+            <th>{{ ingredient.id }}</th>
             <td>{{ ingredient.name }}</td>
-            <td>{{ ingredient.formatted_cost }}</td>
+            <td class="text-end">{{ ingredient.formatted_cost }}</td>
             <td class="text-end">
                 <div class="btn-group" role="group" aria-label="Ingredient management">
                     <a href="{% url 'ingredients:detail' ingredient.id %}" role="button"

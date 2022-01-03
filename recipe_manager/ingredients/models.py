@@ -1,7 +1,7 @@
 from django.contrib import admin
 from django.db import models
 
-from common.measurement.models.units import Centiliter, Gram, Kilogram, Liter
+from common.models import Centiliter, Gram, Kilogram, Liter
 
 
 class MeasurementUnits(models.TextChoices):

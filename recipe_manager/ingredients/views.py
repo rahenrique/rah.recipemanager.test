@@ -18,6 +18,10 @@ class DetailView(generic.DetailView):
     template_name = 'ingredients/detail.html'
 
 
+def create(request):
+    pass
+
+
 # def edit(request, pk):
 #     ingredient = get_object_or_404(Ingredient, pk=pk)
 #     return render(

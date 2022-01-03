@@ -12,17 +12,32 @@
 
 {% block content %}
 <h1>{{ recipe.name }} <small>#{{ recipe.id }}</small></h1>
-<p>
-    <strong>name:</strong> {{ recipe.name }}<br>
-    <strong>total cost:</strong> {{ recipe.formatted_total_cost }}<br>
-</p>
-<ul>
-    {% for ingredient in recipe.ingredients.all %}
-    <li>
-        {{ ingredient.recipeingredient_set.get.amount }}
-        {{ ingredient.recipeingredient_set.get.measurement_unit }} of
-        <a href="{% url 'ingredients:detail' ingredient.id %}">{{ ingredient.name }}</a>
-    </li>
-    {% endfor %}
-</ul>
+
+<table class="table table-sm table-striped table-hover">
+    <thead>
+        <tr>
+            <th>Ingredient</th>
+            <th class="text-end">Amount</th>
+            <th class="text-end">Ingredient cost</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for ingredient in recipe.ingredients.all %}
+        <tr>
+            <td>
+                <a href="{% url 'ingredients:detail' ingredient.id %}">{{ ingredient.name }}</a><br>
+                <small><em>cost: {{ ingredient.formatted_cost }}</em></small>
+            </td>
+            <td class="text-end">{{ ingredient.recipeingredient_set.get.amount }} {{ ingredient.recipeingredient_set.get.measurement_unit }}</td>
+            <td class="text-end">{{ ingredient.recipeingredient_set.get.formatted_cost }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+    <tfoot>
+        <tr>
+            <td colspan="2"><strong>Total recipe cost</strong></td>
+            <td class="text-end"><strong>{{ recipe.formatted_total_cost }}</strong></td>
+        </tr>
+    </tfoot>
+</table>
 {% endblock %}
