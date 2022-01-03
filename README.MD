@@ -48,17 +48,15 @@ Access:
 * App: <http://127.0.0.1:8000/>
 * Admin: <http://127.0.0.1:8000/admin>
 
----
 ## Initial database seed
 
-There is no need for apply a initial seed to the database. The `db.sqlite3` file is shipped within the repository, and has all the necessary data for a initial test.
+For simplicity, there is no need for apply a initial database seed. The `db.sqlite3` file shipped within the repository has all the necessary data for a initial testof the features of the application.
 
----
 ## Pre-configured accounts
-Default user access  
+**Default user access**  
 username: `rah`  
 password: `admin123456`  
 
-Admin access  
+**Admin access**  
 username: `admin`  
 password: `admin123`  
