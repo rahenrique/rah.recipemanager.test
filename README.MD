@@ -60,3 +60,13 @@ password: `admin123456`
 **Admin access**  
 username: `admin`  
 password: `admin123`  
+
+## Running tests
+To run the unit tests provided with the application, run the following command on the virtual environment terminal:
+
+```bash
+# This will run all tests inside the Django apps
+(.venv)$ python manage.py test
+
+# Currently, there is tests only for the common app, to ensure the measurement unit conversions are correct
+```
