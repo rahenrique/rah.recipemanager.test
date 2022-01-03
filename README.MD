@@ -35,7 +35,7 @@ $ source .venv/bin/activate
 (.venv)$ pip install -r src/requirements.txt
 
 # To initialize the application, use the manage.py from Django:
-(.venv)$ python3 manage.py runserver
+(.venv)$ python3 recipe_manager/manage.py runserver
 
 # You should see something like the following on your terminal:
 Starting development server at http://127.0.0.1:8000/
@@ -48,8 +48,13 @@ Access:
 * App: <http://127.0.0.1:8000/>
 * Admin: <http://127.0.0.1:8000/admin>
 
+---
+## Initial database seed
 
-### Pre-configured accounts
+There is no need for apply a initial seed to the database. The `db.sqlite3` file is shipped within the repository, and has all the necessary data for a initial test.
+
+---
+## Pre-configured accounts
 Default user access  
 username: `rah`  
 password: `admin123456`  
