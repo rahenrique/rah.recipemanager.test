@@ -50,11 +50,10 @@ Access:
 
 
 ### Pre-configured accounts
-Default user access
-username: rah
-password: admin123456
+Default user access  
+username: `rah`  
+password: `admin123456`  
 
-Admin access
-username: admin
-password: admin123
-
+Admin access  
+username: `admin`  
+password: `admin123`  
