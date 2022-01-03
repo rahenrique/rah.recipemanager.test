@@ -8,5 +8,5 @@ urlpatterns = [
     path('', views.IndexView.as_view(), name='index'),
     path('<int:pk>', views.DetailView.as_view(), name='detail'),
     path('create', views.create, name='create'),
-    # path('<int:pk>/edit', views.edit, name='edit'),
+    path('<int:pk>/edit', views.edit, name='edit'),
 ]

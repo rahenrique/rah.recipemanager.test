@@ -43,7 +43,7 @@
                     <a href="{% url 'ingredients:detail' ingredient.id %}" role="button"
                         class="btn btn-sm btn-info">Detail</a>
                     {% if user.is_authenticated %}
-                    <a href="{% url 'ingredients:detail' ingredient.id %}" role="button"
+                    <a href="{% url 'ingredients:edit' ingredient.id %}" role="button"
                         class="btn btn-sm btn-warning">Edit</a>
                     {% endif %}
                 </div>

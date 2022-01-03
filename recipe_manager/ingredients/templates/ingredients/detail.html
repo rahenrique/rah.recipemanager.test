@@ -18,4 +18,9 @@
     <strong>base amount:</strong> {{ ingredient.base_amount }} {{ ingredient.base_measurement_unit }}<br>
     <strong>cost/amount:</strong> {{ ingredient.formatted_cost }}<br>
 </p>
+{% if user.is_authenticated %}
+<p>
+    <a href="{% url 'ingredients:edit' ingredient.id %}" role="button" class="btn btn-sm btn-warning">Edit ingredient</a>
+</p>
+{% endif %}
 {% endblock %}

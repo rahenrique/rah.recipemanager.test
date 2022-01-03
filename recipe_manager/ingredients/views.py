@@ -1,5 +1,5 @@
 from django.db.models import Q
-from django.shortcuts import redirect, render
+from django.shortcuts import get_object_or_404, redirect, render
 from django.views import generic
 from django.contrib.auth.decorators import login_required
 
@@ -53,10 +53,28 @@ def create(request):
         return render(request, 'ingredients/create_form.html')
 
 
-# def edit(request, pk):
-#     ingredient = get_object_or_404(Ingredient, pk=pk)
-#     return render(
-#         request,
-#         'ingredients/edit_form.html',
-#         {'ingredient': ingredient}
-#     )
+@login_required
+def edit(request, pk):
+    ingredient = get_object_or_404(Ingredient, pk=pk)
+
+    if request.method == 'POST':
+        try:
+            name = request.POST['name']
+            article_number = request.POST['article_number']
+            base_measurement_unit = request.POST['base_measurement_unit']
+            base_amount = request.POST['base_amount']
+            cost_per_base_amount = request.POST['cost_per_base_amount']
+
+            ingredient.name = name
+            ingredient.article_number = article_number
+            ingredient.base_measurement_unit = base_measurement_unit
+            ingredient.base_amount = base_amount
+            ingredient.cost_per_base_amount = cost_per_base_amount
+            ingredient.save()
+
+            return redirect('ingredients:detail', pk=ingredient.id)
+
+        except Exception as e:
+            return render(request, 'ingredients/edit_form.html', {'error': str(e)})
+    else:
+        return render(request, 'ingredients/edit_form.html', {'ingredient': ingredient})
