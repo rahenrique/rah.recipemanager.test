@@ -9,7 +9,7 @@ def index(request):
         request,
         'home/index.html',
         {
-            'newest_recipes': Recipe.objects.order_by('-created_at')[:5],
-            'newest_ingredients': Ingredient.objects.order_by('-id')[:5],
+            'newest_recipes': Recipe.objects.order_by('-created_at')[:3],
+            'newest_ingredients': Ingredient.objects.order_by('-id')[:3],
         }
     )
