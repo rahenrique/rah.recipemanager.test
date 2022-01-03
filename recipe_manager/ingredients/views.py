@@ -1,7 +1,7 @@
+from django.contrib.auth.decorators import login_required
 from django.db.models import Q
 from django.shortcuts import get_object_or_404, redirect, render
 from django.views import generic
-from django.contrib.auth.decorators import login_required
 
 from ingredients.models import Ingredient
 
@@ -72,9 +72,14 @@ def edit(request, pk):
             ingredient.cost_per_base_amount = cost_per_base_amount
             ingredient.save()
 
-            return redirect('ingredients:detail', pk=ingredient.id)
+            return render(
+                request,
+                'ingredients/edit_form.html',
+                {'ingredient': ingredient,
+                    'success': 'The ingredient was saved successfuly'}
+            )
 
         except Exception as e:
-            return render(request, 'ingredients/edit_form.html', {'error': str(e)})
+            return render(request, 'ingredients/edit_form.html', {'ingredient': ingredient, 'error': str(e)})
     else:
         return render(request, 'ingredients/edit_form.html', {'ingredient': ingredient})
