@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import redirect, render
 from django.views import generic
 from django.contrib.auth.decorators import login_required
 
@@ -22,11 +22,25 @@ class DetailView(generic.DetailView):
 @login_required
 def create(request):
     if request.method == 'POST':
-        name = request.POST['name']
-        article_number = request.POST['article_number']
-        Ingredient.objects.create({'name': name, 'article_number': article_number})
-        # return render(request, 'ingredients/create_form.html')
-        return
+        try:
+            name = request.POST['name']
+            article_number = request.POST['article_number']
+            base_measurement_unit = request.POST['base_measurement_unit']
+            base_amount = request.POST['base_amount']
+            cost_per_base_amount = request.POST['cost_per_base_amount']
+
+            ingredient = Ingredient()
+            ingredient.name = name
+            ingredient.article_number = article_number
+            ingredient.base_measurement_unit = base_measurement_unit
+            ingredient.base_amount = base_amount
+            ingredient.cost_per_base_amount = cost_per_base_amount
+            ingredient.save()
+
+            return redirect('ingredients:detail', pk=ingredient.id)
+
+        except Exception as e:
+            return render(request, 'ingredients/create_form.html', {'error': str(e)})
     else:
         return render(request, 'ingredients/create_form.html')
 
