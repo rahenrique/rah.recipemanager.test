@@ -11,7 +11,7 @@ class IndexView(generic.ListView):
     context_object_name = 'all_ingredients'
 
     def get_queryset(self):
-        """Return all ingredients, optionally filtered by name or """
+        """Return all ingredients, optionally filtered by name or article_number"""
         query = self.request.GET.get('q')
         if query:
             # return Ingredient.objects.filter(name__icontains=query).order_by('name')

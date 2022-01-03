@@ -10,8 +10,12 @@ class IndexView(generic.ListView):
     context_object_name = 'newest_recipes'
 
     def get_queryset(self):
-        """Return the newest recipes."""
-        return Recipe.objects.order_by('-id')[:25]
+        """Return all recipes, optionally filtered by name"""
+        query = self.request.GET.get('q')
+        if query:
+            return Recipe.objects.filter(name__icontains=query).order_by('name')
+        else:
+            return Recipe.objects.all().order_by('name')
 
 
 class DetailView(generic.DetailView):
