@@ -58,17 +58,18 @@
                         </tr>
                     </thead>
                     <tbody>
-                        {% for ingredient in recipe.ingredients.all %}
+                        {% for recipeingredient in recipe.recipeingredient_set.all %}
                         <tr>
                             <td>
                                 <input type="hidden" name="ingredients"
-                                    value='{"id":"{{ ingredient.id }}","amount":"{{ ingredient.recipeingredient_set.get.amount }}","unit":"{{ ingredient.recipeingredient_set.get.measurement_unit }}"}'>
-                                {{ ingredient.name }}
+                                    value='{"id":"{{ recipeingredient.ingredient.id }}","amount":"{{ recipeingredient.amount }}","unit":"{{ recipeingredient.measurement_unit }}"}'>
+                                {{ recipeingredient.ingredient.name }}
                             </td>
-                            <td class="text-end">{{ ingredient.recipeingredient_set.get.amount }}</td>
-                            <td>{{ ingredient.recipeingredient_set.get.measurement_unit }}</td>
-                            <td class="text-end">{{ ingredient.recipeingredient_set.get.formatted_cost }}</td>
-                            <td class="text-end"><button type="button" class="js_remove_ingredient btn btn-danger btn-sm">x</button></td>
+                            <td class="text-end">{{ recipeingredient.amount }}</td>
+                            <td>{{ recipeingredient.measurement_unit }}</td>
+                            <td class="text-end">{{ recipeingredient.formatted_cost }}</td>
+                            <td class="text-end"><button type="button"
+                                    class="js_remove_ingredient btn btn-danger btn-sm">x</button></td>
                         </tr>
                         {% endfor %}
                     </tbody>
@@ -84,10 +85,10 @@
                             <option selected disabled>Choose one...</option>
                             {% for ingredient in all_ingredients %}
                             <option value="{{ ingredient.id }}" 
-                                data-id="{{ ingredient.id }}" 
+                                data-id="{{ ingredient.id }}"
                                 data-name="{{ ingredient.name }}" 
-                                data-formatted-cost="({{ ingredient.formatted_cost }}" 
-                            >{{ ingredient.name }} ({{ ingredient.formatted_cost }})
+                                data-formatted-cost="{{ ingredient.formatted_cost }}">
+                                {{ ingredient.name }} ({{ ingredient.formatted_cost }})
                             </option>
                             {% endfor %}
                         </select>
