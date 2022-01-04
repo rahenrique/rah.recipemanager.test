@@ -21,14 +21,14 @@
         </tr>
     </thead>
     <tbody>
-        {% for ingredient in recipe.ingredients.all %}
+        {% for recipeingredient in recipe.recipeingredient_set.all %}
         <tr>
             <td>
-                <a href="{% url 'ingredients:detail' ingredient.id %}">{{ ingredient.name }}</a><br>
-                <small><em>cost: {{ ingredient.formatted_cost }}</em></small>
+                <a href="{% url 'ingredients:detail' recipeingredient.ingredient.id %}">{{ recipeingredient.ingredient.name }}</a><br>
+                <small><em>cost: {{ recipeingredient.ingredient.formatted_cost }}</em></small>
             </td>
-            <td class="text-end">{{ ingredient.recipeingredient_set.get.amount }} {{ ingredient.recipeingredient_set.get.measurement_unit }}</td>
-            <td class="text-end">{{ ingredient.recipeingredient_set.get.formatted_cost }}</td>
+            <td class="text-end">{{ recipeingredient.amount }} {{ recipeingredient.measurement_unit }}</td>
+            <td class="text-end">{{ recipeingredient.formatted_cost }}</td>
         </tr>
         {% endfor %}
     </tbody>
@@ -43,4 +43,9 @@
     <em>posted by</em> {{ recipe.author }} <em>on</em> {{ recipe.created_at }}<br>
     <em>last updated at</em> {{ recipe.updated_at }}
 </p>
+{% if user.is_authenticated %}
+<p>
+    <a href="{% url 'recipes:edit' recipe.id %}" role="button" class="btn btn-sm btn-warning">Edit recipe</a>
+</p>
+{% endif %}
 {% endblock %}

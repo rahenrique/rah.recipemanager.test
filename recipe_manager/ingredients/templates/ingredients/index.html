@@ -34,14 +34,14 @@
     <tbody>
         {% for ingredient in all_ingredients %}
         <tr>
-            <th><small>{{ ingredient.id }}</small></th>
-            <th><small>{{ ingredient.article_number }}</small></th>
+            <td><small>{{ ingredient.id }}</small></td>
+            <td><small>{{ ingredient.article_number }}</small></td>
             <td>{{ ingredient.name }}</td>
             <td class="text-end">{{ ingredient.formatted_cost }}</td>
             <td class="text-end">
                 <div class="btn-group" role="group" aria-label="Ingredient management">
                     <a href="{% url 'ingredients:detail' ingredient.id %}" role="button"
-                        class="btn btn-sm btn-info">Detail</a>
+                        class="btn btn-sm btn-primary">Detail</a>
                     {% if user.is_authenticated %}
                     <a href="{% url 'ingredients:edit' ingredient.id %}" role="button"
                         class="btn btn-sm btn-warning">Edit</a>

@@ -1,11 +1,11 @@
 <!-- Page header -->
 <header class="p-3 bg-dark">
-    <div class="container d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
-        <a href="{% url 'home:home' %}" class="d-flex align-items-center mb-2 mb-lg-0 link-light text-decoration-none">
+    <div class="container d-flex flex-wrap align-items-center justify-content-start">
+        <a href="{% url 'home:home' %}" class="d-flex align-items-center mb-0 link-light text-decoration-none">
             <i class="bi bi-journal-text" style="font-size: 2rem;" title="Recipe Manager"></i>
         </a>
 
-        <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
+        <ul class="nav col-auto me-auto mb-0 justify-content-center">
             <li><a href="{% url 'home:home' %}"
                     class="nav-link px-2 link-light{% if active_item == 'home' %} text-secondary active{% endif %}">Home</a>
             </li>
@@ -32,7 +32,7 @@
             <ul class="dropdown-menu text-small">
                 <li class="dropdown-item">Hello, {{ user.username }}</li>
                 <li><hr class="dropdown-divider"></li>
-                <li><a class="dropdown-item" href="#">New recipe...</a></li>
+                <li><a class="dropdown-item" href="{% url 'recipes:create' %}">New recipe...</a></li>
                 <li><a class="dropdown-item" href="{% url 'ingredients:create' %}">New ingredient...</a></li>
                 <li><hr class="dropdown-divider"></li>
                 <li><a class="dropdown-item" href="{% url 'admin:index' %}">Site Administration</a></li>

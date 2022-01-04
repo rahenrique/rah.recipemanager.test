@@ -17,7 +17,7 @@
     {% if error %}
     <div class="alert alert-danger" role="alert">{{ error }}</div>
     {% endif %}
-    <div class="col-6">
+    <div class="col-12 col-lg-9">
 
         <h1>Editing {{ ingredient.name }}</h1>
         <p>&nbsp;</p>
@@ -26,19 +26,20 @@
 
             {% csrf_token %}
 
-            <div class="form-floating mb-3">
+            <div class="mb-3">
+                <label for="name_input">Name</label>
                 <input type="text" class="form-control" id="name_input" name="name" placeholder="Ingredient's name"
                     value="{{ ingredient.name }}" required>
-                <label for="name_input">Name</label>
             </div>
 
-            <div class="form-floating mb-3">
+            <div class="mb-3">
+                <label for="article_number_input">Article number</label>
                 <input type="text" class="form-control" id="article_number_input" name="article_number"
                     placeholder="Ingredient's article number" value="{{ ingredient.article_number }}" required>
-                <label for="article_number_input">Article number</label>
             </div>
 
-            <div class="form-floating mb-3">
+            <div class="mb-3">
+                <label for="base_measurement_unit_input">Measurement unit</label>
                 <select class="form-select" id="base_measurement_unit_input" name="base_measurement_unit"
                     placeholder="Ingredient's measurement unit" value="{{ ingredient.base_measurement_unit }}" required>
                     <option disabled>Choose one...</option>
@@ -47,23 +48,27 @@
                     <option {% if ingredient.base_measurement_unit == 'cL' %} selected {% endif %} value="cL">centiliter</option>
                     <option {% if ingredient.base_measurement_unit == 'L' %} selected {% endif %} value="L">liter</option>
                 </select>
-                <label for="base_measurement_unit_input">Measurement unit</label>
             </div>
 
-            <div class="form-floating mb-3">
+            <div class="mb-3">
+                <label for="base_amount_input">Buying amount</label>
                 <input type="number" step="0.01" min="0" class="form-control" id="base_amount_input" name="base_amount"
                     placeholder="Ingredient's buying amount" value="{{ ingredient.base_amount }}" required>
-                <label for="base_amount_input">Buying amount</label>
             </div>
 
-            <div class="form-floating mb-3">
+            <div class="mb-3">
+                <label for="cost_per_base_amount_input">Cost per buying amount</label>
                 <input type="number" step="0.01" min="0" class="form-control" id="cost_per_base_amount_input"
                     name="cost_per_base_amount" placeholder="Ingredient's cost per buying amount"
                     value="{{ ingredient.cost_per_base_amount }}" required>
-                <label for="cost_per_base_amount_input">Cost per buying amount</label>
             </div>
 
-            <input type="submit" role="button" class="btn btn-warning" value="Update Ingredient">
+            <hr class="my-5">
+
+            <div class="btn-group" role="group">
+                <input type="submit" role="button" class="btn btn-warning" value="Update Ingredient">
+                <a href="{% url 'ingredients:edit' ingredient.id %}" role="button" class="btn btn-secondary">Reset</a>
+            </div>
         </form>
     </div>
 </div>

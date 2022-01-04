@@ -14,7 +14,7 @@
     {% if error %}
     <div class="alert alert-danger" role="alert">{{ error }}</div>
     {% endif %}
-    <div class="col-6">
+    <div class="col-12 col-md-9 col-lg-6">
 
         <h1>Login</h1>
         <p>Login to your account to be able to edit ingredients and recipes</p>
@@ -29,13 +29,13 @@
 
             <div class="form-floating mb-3">
                 <input type="text" class="form-control" id="username_input" name="username"
-                    placeholder="someuniqueusername" required value="rah">
+                    placeholder="someuniqueusername" required>
                 <label for="username_input">Unique username</label>
             </div>
 
             <div class="form-floating mb-3">
                 <input type="password" class="form-control" id="password_input" name="password"
-                    placeholder="Some Secure Password" required value="rah123456">
+                    placeholder="Some Secure Password" required>
                 <label for="password_input">Secure Password</label>
             </div>
 

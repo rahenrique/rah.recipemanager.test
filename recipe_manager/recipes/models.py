@@ -25,9 +25,9 @@ class Recipe(models.Model):
     def total_cost(self) -> float:
         """Returns the total recipe cost, based on amount and cost of all ingredients."""
         cost = 0
-        ingredient: Ingredient
-        for ingredient in self.ingredients.all():
-            cost += ingredient.recipeingredient_set.get().cost()
+        recipeingredient: RecipeIngredient
+        for recipeingredient in self.recipeingredient_set.all():
+            cost += recipeingredient.cost()
         return cost
 
     @admin.display(description='Total cost')
@@ -37,6 +37,12 @@ class Recipe(models.Model):
 
 
 class RecipeIngredient(models.Model):
+    class Meta:
+        ordering = ('ingredient',)
+        verbose_name = 'Recipe Ingredient'
+        verbose_name_plural = 'Recipe Ingredients'
+        constraints = [models.UniqueConstraint(fields=['recipe', 'ingredient'], name="recipe_ingredient")]
+
     recipe = models.ForeignKey(Recipe, on_delete=models.CASCADE)
     ingredient = models.ForeignKey(Ingredient, on_delete=models.CASCADE)
     amount = models.FloatField()

@@ -21,7 +21,7 @@ class ServiceTests(TestCase):
         self.assertEquals(measurement_in_grams.value, 1000)
         self.assertEquals(measurement_in_centiliters.value, 100)
 
-    def test_conversion_between_different_type_of_measurement_units_raise_esception(self):
+    def test_conversion_between_different_type_of_measurement_units_raise_exception(self):
         """
         A conversion from one unit type (ex: Mass) from another unit type (ex: Volume)
         should raise a TypeError

@@ -29,7 +29,7 @@
             <td class="text-end">
                 <div class="btn-group" role="group" aria-label="Recipe management">
                     <a href="{% url 'recipes:detail' recipe.id %}" role="button"
-                        class="btn btn-sm btn-info">Detail</a>
+                        class="btn btn-sm btn-primary">Detail</a>
                 </div>
             </td>
         </tr>
@@ -53,6 +53,7 @@
     <thead>
         <tr>
             <th>#</th>
+            <th>Article number</th>
             <th>Name</th>
             <th class="text-end">Cost/amount</th>
             <th>&nbsp;</th>
@@ -61,13 +62,14 @@
     <tbody>
         {% for ingredient in newest_ingredients %}
         <tr>
-            <th>{{ ingredient.id }}</th>
+            <td>{{ ingredient.id }}</td>
+            <td>{{ ingredient.article_number }}</td>
             <td>{{ ingredient.name }}</td>
             <td class="text-end">{{ ingredient.formatted_cost }}</td>
             <td class="text-end">
                 <div class="btn-group" role="group" aria-label="Ingredient management">
                     <a href="{% url 'ingredients:detail' ingredient.id %}" role="button"
-                        class="btn btn-sm btn-info">Detail</a>
+                        class="btn btn-sm btn-primary">Detail</a>
                 </div>
             </td>
         </tr>
