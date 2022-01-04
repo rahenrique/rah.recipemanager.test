@@ -17,7 +17,7 @@
     {% if error %}
     <div class="alert alert-danger" role="alert">{{ error }}</div>
     {% endif %}
-    <div class="col-6">
+    <div class="col-12 col-md-9 col-lg-6">
 
         <h1>Editing {{ ingredient.name }}</h1>
         <p>&nbsp;</p>
@@ -63,7 +63,10 @@
                 <label for="cost_per_base_amount_input">Cost per buying amount</label>
             </div>
 
-            <input type="submit" role="button" class="btn btn-warning" value="Update Ingredient">
+            <div class="btn-group" role="group">
+                <input type="submit" role="button" class="btn btn-warning" value="Update Ingredient">
+                <a href="{% url 'ingredients:edit' ingredient.id %}" role="button" class="btn btn-secondary">Reset</a>
+            </div>
         </form>
     </div>
 </div>

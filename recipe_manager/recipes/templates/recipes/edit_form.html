@@ -1,0 +1,119 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ recipe.name }} - A recipe on {{ block.super }}{% endblock %}
+
+{% block header %}{% include "header.html" with active_item="recipes" %}{% endblock header %}
+
+{% block breadcrumb %}
+{{ block.super }}
+<li class="breadcrumb-item"><a href="{% url 'recipes:index' %}">Recipes</a></li>
+<li class="breadcrumb-item"><a href="{% url 'recipes:detail' recipe.id %}">{{ recipe.name }}</a></li>
+<li class="breadcrumb-item active" aria-current="page">Edit</li>
+{% endblock breadcrumb %}
+
+{% block content %}
+
+<div class="row justify-content-center">
+
+    {% if success %}
+    <div class="alert alert-success" role="alert">{{ success }}</div>
+    {% endif %}
+
+    {% if error %}
+    <div class="alert alert-danger" role="alert">{{ error }}</div>
+    {% endif %}
+
+    <div class="col-12 col-md-9 col-lg-6">
+
+        <h1>Editing {{ recipe.name }}</h1>
+        <p>&nbsp;</p>
+
+        <form method="POST" action="{% url 'recipes:edit' recipe.id %}" class="border rounded-3 p-3">
+
+            {% csrf_token %}
+
+            <div class="form-floating mb-3">
+                <input type="text" class="form-control" id="name_input" name="name" placeholder="Recipe's name"
+                    value="{{ recipe.name }}" required>
+                <label for="name_input">Name</label>
+            </div>
+
+            <fieldset>
+                <legend>Recipe's ingredients</legend>
+                <table class="table table-sm table-striped table-hover">
+                    <thead>
+                        <tr>
+                            <th>Ingredient</th>
+                            <th class="text-end">Amount</th>
+                            <th>Unit</th>
+                            <th class="text-end">Ingredient cost</th>
+                            <th class="text-end">&nbsp;</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for ingredient in recipe.ingredients.all %}
+                        <tr>
+                            <td>
+                                <input type="hidden" name="ingredients[{{ ingredient.id }}][ingredient]" value="{{ ingredient.id }}">
+                                <input type="hidden" name="ingredients[{{ ingredient.id }}][amount]" value="{{ ingredient.recipeingredient_set.get.amount }}">
+                                <input type="hidden" name="ingredients[{{ ingredient.id }}][unit]" value="{{ ingredient.recipeingredient_set.get.measurement_unit }}">
+                                {{ ingredient.name }}
+                            </td>
+                            <td class="text-end">{{ ingredient.recipeingredient_set.get.amount }}</td>
+                            <td>{{ ingredient.recipeingredient_set.get.measurement_unit }}</td>
+                            <td class="text-end">{{ ingredient.recipeingredient_set.get.formatted_cost }}</td>
+                            <td class="text-end"><button type="button" class="btn btn-danger btn-sm">x</button></td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+                <hr>
+            </fieldset>
+
+            <fieldset>
+                <legend>Add ingredient</legend>
+                <div class="form-floating mb-3">
+                    <select class="form-select" id="ingredients_input" name="ingredients"
+                        placeholder="Recipe's measurement unit" value="{{ recipe.ingredients }}" required>
+                        <option selected disabled>Choose one...</option>
+                        {% for ingredient in all_ingredients %}
+                        <option value="{{ ingredient.id }}">{{ ingredient.name }}</option>
+                        {% endfor %}
+                    </select>
+                    <label for="ingredients_input">Ingredient name</label>
+                </div>
+            </fieldset>
+
+            <!-- <div class="form-floating mb-3">
+                <select class="form-select" id="base_measurement_unit_input" name="base_measurement_unit"
+                    placeholder="Recipe's measurement unit" value="{{ recipe.base_measurement_unit }}" required>
+                    <option disabled>Choose one...</option>
+                    <option {% if recipe.base_measurement_unit == 'g' %} selected {% endif %} value="g">grams</option>
+                    <option {% if recipe.base_measurement_unit == 'Kg' %} selected {% endif %} value="Kg">kilograms</option>
+                    <option {% if recipe.base_measurement_unit == 'cL' %} selected {% endif %} value="cL">centiliter</option>
+                    <option {% if recipe.base_measurement_unit == 'L' %} selected {% endif %} value="L">liter</option>
+                </select>
+                <label for="base_measurement_unit_input">Measurement unit</label>
+            </div> -->
+
+            <!-- <div class="form-floating mb-3">
+                <input type="number" step="0.01" min="0" class="form-control" id="base_amount_input" name="base_amount"
+                    placeholder="Recipe's buying amount" value="{{ recipe.base_amount }}" required>
+                <label for="base_amount_input">Buying amount</label>
+            </div>
+
+            <div class="form-floating mb-3">
+                <input type="number" step="0.01" min="0" class="form-control" id="cost_per_base_amount_input"
+                    name="cost_per_base_amount" placeholder="Recipe's cost per buying amount"
+                    value="{{ recipe.cost_per_base_amount }}" required>
+                <label for="cost_per_base_amount_input">Cost per buying amount</label>
+            </div> -->
+
+            <div class="btn-group" role="group">
+                <input type="submit" role="button" class="btn btn-warning" value="Update Recipe">
+                <a href="{% url 'recipes:edit' recipe.id %}" role="button" class="btn btn-secondary">Reset</a>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}

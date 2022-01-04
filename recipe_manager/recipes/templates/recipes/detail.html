@@ -43,4 +43,9 @@
     <em>posted by</em> {{ recipe.author }} <em>on</em> {{ recipe.created_at }}<br>
     <em>last updated at</em> {{ recipe.updated_at }}
 </p>
+{% if user.is_authenticated %}
+<p>
+    <a href="{% url 'recipes:edit' recipe.id %}" role="button" class="btn btn-sm btn-warning">Edit recipe</a>
+</p>
+{% endif %}
 {% endblock %}
