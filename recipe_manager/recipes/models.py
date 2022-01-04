@@ -27,7 +27,7 @@ class Recipe(models.Model):
         cost = 0
         ingredient: Ingredient
         for ingredient in self.ingredients.all():
-            cost += ingredient.recipeingredient_set.get().cost()
+            cost += 0.1  # ingredient.recipeingredient_set.get().cost()
         return cost
 
     @admin.display(description='Total cost')
@@ -37,8 +37,8 @@ class Recipe(models.Model):
 
 
 class RecipeIngredient(models.Model):
-    class Meta:
-        constraints = [models.UniqueConstraint(fields=['recipe', 'ingredient'], name="recipe_ingredient")]
+    # class Meta:
+    #     constraints = [models.UniqueConstraint(fields=['recipe', 'ingredient'], name="recipe_ingredient")]
 
     recipe = models.ForeignKey(Recipe, on_delete=models.CASCADE)
     ingredient = models.ForeignKey(Ingredient, on_delete=models.CASCADE)
