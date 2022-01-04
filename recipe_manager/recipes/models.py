@@ -38,6 +38,9 @@ class Recipe(models.Model):
 
 class RecipeIngredient(models.Model):
     class Meta:
+        ordering = ('ingredient',)
+        verbose_name = 'Recipe Ingredient'
+        verbose_name_plural = 'Recipe Ingredients'
         constraints = [models.UniqueConstraint(fields=['recipe', 'ingredient'], name="recipe_ingredient")]
 
     recipe = models.ForeignKey(Recipe, on_delete=models.CASCADE)
