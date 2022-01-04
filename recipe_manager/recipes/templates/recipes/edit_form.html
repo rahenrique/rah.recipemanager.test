@@ -30,7 +30,7 @@
     <div class="alert alert-danger" role="alert">{{ error }}</div>
     {% endif %}
 
-    <div class="col-12 col-md-9 col-lg-6">
+    <div class="col-12 col-lg-9">
 
         <h1>Editing {{ recipe.name }}</h1>
         <p>&nbsp;</p>
@@ -39,11 +39,15 @@
 
             {% csrf_token %}
 
-            <div class="form-floating mb-3">
-                <input type="text" class="form-control" id="name_input" name="name" placeholder="Recipe's name"
-                    value="{{ recipe.name }}" required>
-                <label for="name_input">Name</label>
-            </div>
+            <fieldset>
+                <div class="mb-3">
+                    <label for="name_input">Name</label>
+                    <input type="text" class="form-control" id="name_input" name="name" placeholder="Recipe's name"
+                        value="{{ recipe.name }}" required>
+                </div>
+            </fieldset>
+
+            <hr>
 
             <fieldset>
                 <legend>Recipe's ingredients</legend>
@@ -52,21 +56,19 @@
                         <tr>
                             <th>Ingredient</th>
                             <th class="text-end">Amount</th>
-                            <th>Unit</th>
                             <th class="text-end">Ingredient cost</th>
                             <th class="text-end">&nbsp;</th>
                         </tr>
                     </thead>
                     <tbody>
                         {% for recipeingredient in recipe.recipeingredient_set.all %}
-                        <tr>
+                        <tr data-id="{{ recipeingredient.ingredient.id }}">
                             <td>
                                 <input type="hidden" name="ingredients"
                                     value='{"id":"{{ recipeingredient.ingredient.id }}","amount":"{{ recipeingredient.amount }}","unit":"{{ recipeingredient.measurement_unit }}"}'>
                                 {{ recipeingredient.ingredient.name }}
                             </td>
-                            <td class="text-end">{{ recipeingredient.amount }}</td>
-                            <td>{{ recipeingredient.measurement_unit }}</td>
+                            <td class="text-end">{{ recipeingredient.amount }} {{ recipeingredient.measurement_unit }}</td>
                             <td class="text-end">{{ recipeingredient.formatted_cost }}</td>
                             <td class="text-end"><button type="button"
                                     class="js_remove_ingredient btn btn-danger btn-sm">x</button></td>
@@ -76,11 +78,13 @@
                 </table>
             </fieldset>
 
+            <hr>
+
             <fieldset>
                 <legend>Add ingredient</legend>
-
                 <div id="new_ingredients" class="">
-                    <div class="form-floating mb-3">
+                    <div class="mb-3">
+                        <label for="ingredients_input">Ingredient</label>
                         <select class="form-select" id="ingredients_input" placeholder="Recipe's ingredient" required>
                             <option selected disabled>Choose one...</option>
                             {% for ingredient in all_ingredients %}
@@ -92,14 +96,15 @@
                             </option>
                             {% endfor %}
                         </select>
-                        <label for="ingredients_input">Ingredient</label>
+                    <span class="form-text">Ingredients already on recipe will be disabled.</span>
                     </div>
-                    <div class="form-floating mb-3">
-                        <input type="number" step="0.01" min="0" class="form-control" id="amount_input" name="amount"
-                            placeholder="Recipe's amount" value="0">
+                    <div class="mb-3">
                         <label for="amount_input">Amount</label>
+                        <input type="number" step="0.01" min="0" class="form-control" id="amount_input" name="amount"
+                            placeholder="Recipe's amount">
                     </div>
-                    <div class="form-floating mb-3">
+                    <div class="mb-3">
+                        <label for="measurement_input">Measurement Unit</label>
                         <select class="form-select" id="measurement_input" name="unit"
                             placeholder="Recipe's measurement unit" required>
                             <option selected disabled>Choose one...</option>
@@ -107,14 +112,13 @@
                             <option value="{{ symbol }}">{{ unit }} ({{ symbol }})</option>
                             {% endfor %}
                         </select>
-                        <label for="measurement_input">Measurement Unit</label>
                     </div>
                     <button type="button" id="js_add_ingredient" class="btn btn-success btn-sm">Add ingredient</button>
                 </div>
 
             </fieldset>
 
-            <hr>
+            <hr class="my-5">
 
             <div class="btn-group" role="group">
                 <input type="submit" role="button" class="btn btn-warning" value="Update Recipe">
