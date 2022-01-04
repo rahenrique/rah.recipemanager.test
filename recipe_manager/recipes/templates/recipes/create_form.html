@@ -1,0 +1,115 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}New recipe on {{ block.super }}{% endblock %}
+
+{% block header %}{% include "header.html" with active_item="recipes" %}{% endblock header %}
+
+{% block breadcrumb %}
+{{ block.super }}
+<li class="breadcrumb-item"><a href="{% url 'recipes:index' %}">Recipes</a></li>
+<li class="breadcrumb-item active" aria-current="page">New Recipes</li>
+{% endblock breadcrumb %}
+
+{% block scripts %}
+<script src="{% static 'recipes/main.js' %}"></script>
+{% endblock %}
+
+
+
+{% block content %}
+
+<div class="row justify-content-center">
+
+    {% if success %}
+    <div class="alert alert-success" role="alert">{{ success }}</div>
+    {% endif %}
+
+    {% if error %}
+    <div class="alert alert-danger" role="alert">{{ error }}</div>
+    {% endif %}
+
+    <div class="col-12 col-lg-9">
+
+        <h1>New Recipe</h1>
+        <p>&nbsp;</p>
+
+        <form method="POST" action="{% url 'recipes:create' %}" class="border rounded-3 p-3">
+
+            {% csrf_token %}
+
+            <fieldset>
+                <div class="mb-3">
+                    <label for="name_input">Name</label>
+                    <input type="text" class="form-control" id="name_input" name="name" placeholder="Recipe's name"
+                        value="" required>
+                </div>
+            </fieldset>
+
+            <hr>
+
+            <fieldset>
+                <legend>Recipe's ingredients</legend>
+                <table id="current_ingredients" class="table table-sm table-striped table-hover">
+                    <thead>
+                        <tr>
+                            <th>Ingredient</th>
+                            <th class="text-end">Amount</th>
+                            <th class="text-end">Ingredient cost</th>
+                            <th class="text-end">&nbsp;</th>
+                        </tr>
+                    </thead>
+                    <tbody></tbody>
+                </table>
+            </fieldset>
+
+            <hr>
+
+            <fieldset>
+                <legend>Add ingredient</legend>
+                <div id="new_ingredients" class="">
+                    <div class="mb-3">
+                        <label for="ingredients_input">Ingredient</label>
+                        <select class="form-select" id="ingredients_input" placeholder="Recipe's ingredient" required>
+                            <option selected disabled>Choose one...</option>
+                            {% for ingredient in all_ingredients %}
+                            <option value="{{ ingredient.id }}" 
+                                data-id="{{ ingredient.id }}"
+                                data-name="{{ ingredient.name }}" 
+                                data-formatted-cost="{{ ingredient.formatted_cost }}">
+                                {{ ingredient.name }} ({{ ingredient.formatted_cost }})
+                            </option>
+                            {% endfor %}
+                        </select>
+                    <span class="form-text">Ingredients already on recipe will be disabled.</span>
+                    </div>
+                    <div class="mb-3">
+                        <label for="amount_input">Amount</label>
+                        <input type="number" step="0.01" min="0" class="form-control" id="amount_input" name="amount"
+                            placeholder="Recipe's amount">
+                    </div>
+                    <div class="mb-3">
+                        <label for="measurement_input">Measurement Unit</label>
+                        <select class="form-select" id="measurement_input" name="unit"
+                            placeholder="Recipe's measurement unit" required>
+                            <option selected disabled>Choose one...</option>
+                            {% for symbol, unit in all_measurement_units %}
+                            <option value="{{ symbol }}">{{ unit }} ({{ symbol }})</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <button type="button" id="js_add_ingredient" class="btn btn-success btn-sm">Add ingredient</button>
+                </div>
+
+            </fieldset>
+
+            <hr class="my-5">
+
+            <div class="btn-group" role="group">
+                <input type="submit" role="button" class="btn btn-success" value="Create Recipe">
+                <a href="{% url 'recipes:create' %}" role="button" class="btn btn-secondary">Reset</a>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}

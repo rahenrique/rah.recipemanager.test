@@ -32,8 +32,7 @@
             <ul class="dropdown-menu text-small">
                 <li class="dropdown-item">Hello, {{ user.username }}</li>
                 <li><hr class="dropdown-divider"></li>
-                <li><a class="dropdown-item" href="#">New recipe...</a></li>
-                <li><a class="dropdown-item" href="{% url 'recipes:index' %}">New recipe...</a></li>
+                <li><a class="dropdown-item" href="{% url 'recipes:create' %}">New recipe...</a></li>
                 <li><a class="dropdown-item" href="{% url 'ingredients:create' %}">New ingredient...</a></li>
                 <li><hr class="dropdown-divider"></li>
                 <li><a class="dropdown-item" href="{% url 'admin:index' %}">Site Administration</a></li>
