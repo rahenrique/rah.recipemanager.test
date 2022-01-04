@@ -37,6 +37,9 @@ class Recipe(models.Model):
 
 
 class RecipeIngredient(models.Model):
+    class Meta:
+        constraints = [models.UniqueConstraint(fields=['recipe', 'ingredient'], name="recipe_ingredient")]
+
     recipe = models.ForeignKey(Recipe, on_delete=models.CASCADE)
     ingredient = models.ForeignKey(Ingredient, on_delete=models.CASCADE)
     amount = models.FloatField()

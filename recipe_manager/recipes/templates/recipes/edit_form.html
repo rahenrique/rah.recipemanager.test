@@ -54,12 +54,8 @@
                         {% for ingredient in recipe.ingredients.all %}
                         <tr>
                             <td>
-                                <input type="hidden" name="ingredients[{{ ingredient.id }}][ingredient]"
-                                    value="{{ ingredient.id }}">
-                                <input type="hidden" name="ingredients[{{ ingredient.id }}][amount]"
-                                    value="{{ ingredient.recipeingredient_set.get.amount }}">
-                                <input type="hidden" name="ingredients[{{ ingredient.id }}][unit]"
-                                    value="{{ ingredient.recipeingredient_set.get.measurement_unit }}">
+                                <input type="hidden" name="ingredients"
+                                    value='{"id":"{{ ingredient.id }}","amount":"{{ ingredient.recipeingredient_set.get.amount }}","unit":"{{ ingredient.recipeingredient_set.get.measurement_unit }}"}'>
                                 {{ ingredient.name }}
                             </td>
                             <td class="text-end">{{ ingredient.recipeingredient_set.get.amount }}</td>
@@ -77,14 +73,10 @@
 
                 <div id="new_ingredients" class="">
                     <div class="form-floating mb-3">
-                        <select class="form-select" id="ingredients_input" name="ingredient"
-                            placeholder="Recipe's ingredient" required>
+                        <select class="form-select" id="ingredients_input" placeholder="Recipe's ingredient" required>
                             <option selected disabled>Choose one...</option>
                             {% for ingredient in all_ingredients %}
-                            <option value="{{ ingredient.id }}" data-ingredient-id="{{ ingredient.id }}"
-                                data-ingredient-amount="{{ ingredient.recipeingredient_set.get.amount }}"
-                                data-ingredient-unit="{{ ingredient.recipeingredient_set.get.measurement_unit }}">
-                                {{ ingredient.name }}</option>
+                            <option value="{{ ingredient.id }}">{{ ingredient.name }} ({{ ingredient.formatted_cost }})</option>
                             {% endfor %}
                         </select>
                         <label for="ingredients_input">Ingredient</label>
@@ -99,7 +91,7 @@
                             placeholder="Recipe's measurement unit" required>
                             <option selected disabled>Choose one...</option>
                             {% for symbol, unit in all_measurement_units %}
-                            <option value="{{ symbol }}">{{ unit }}</option>
+                            <option value="{{ symbol }}">{{ unit }} ({{ symbol }})</option>
                             {% endfor %}
                         </select>
                         <label for="measurement_input">Measurement Unit</label>
@@ -110,31 +102,6 @@
             </fieldset>
 
             <hr>
-
-            <!-- <div class="form-floating mb-3">
-                <select class="form-select" id="base_measurement_unit_input" name="base_measurement_unit"
-                    placeholder="Recipe's measurement unit" value="{{ recipe.base_measurement_unit }}" required>
-                    <option disabled>Choose one...</option>
-                    <option {% if recipe.base_measurement_unit == 'g' %} selected {% endif %} value="g">grams</option>
-                    <option {% if recipe.base_measurement_unit == 'Kg' %} selected {% endif %} value="Kg">kilograms</option>
-                    <option {% if recipe.base_measurement_unit == 'cL' %} selected {% endif %} value="cL">centiliter</option>
-                    <option {% if recipe.base_measurement_unit == 'L' %} selected {% endif %} value="L">liter</option>
-                </select>
-                <label for="base_measurement_unit_input">Measurement unit</label>
-            </div> -->
-
-            <!-- <div class="form-floating mb-3">
-                <input type="number" step="0.01" min="0" class="form-control" id="base_amount_input" name="base_amount"
-                    placeholder="Recipe's buying amount" value="{{ recipe.base_amount }}" required>
-                <label for="base_amount_input">Buying amount</label>
-            </div>
-
-            <div class="form-floating mb-3">
-                <input type="number" step="0.01" min="0" class="form-control" id="cost_per_base_amount_input"
-                    name="cost_per_base_amount" placeholder="Recipe's cost per buying amount"
-                    value="{{ recipe.cost_per_base_amount }}" required>
-                <label for="cost_per_base_amount_input">Cost per buying amount</label>
-            </div> -->
 
             <div class="btn-group" role="group">
                 <input type="submit" role="button" class="btn btn-warning" value="Update Recipe">

@@ -1,9 +1,11 @@
+import json
+
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import get_object_or_404, render
 from django.views import generic
 from ingredients.models import Ingredient, MeasurementUnits
 
-from recipes.models import Recipe
+from recipes.models import Recipe, RecipeIngredient
 
 
 class IndexView(generic.ListView):
@@ -33,9 +35,23 @@ def edit(request, pk):
     if request.method == 'POST':
         try:
             name = request.POST['name']
+            ingredients = request.POST.getlist('ingredients')
+            parsed_ingredients = _parse_ingredients(ingredients)
 
             recipe.name = name
             recipe.save()
+
+            # remove all instances of 'through' relationship...
+            recipe.ingredients.clear()
+
+            # ...and then, re/create an instance of 'through' object for each relationship:
+            for one_ingredient in parsed_ingredients:
+                RecipeIngredient.objects.create(
+                    recipe=recipe,
+                    ingredient=Ingredient.objects.get(id=one_ingredient['id']),
+                    amount=one_ingredient['amount'],
+                    measurement_unit=one_ingredient['unit']
+                )
 
             return render(request, 'recipes/edit_form.html', {
                 'recipe': recipe,
@@ -52,3 +68,7 @@ def edit(request, pk):
             'all_ingredients': all_ingredients,
             'all_measurement_units': all_measurement_units,
         })
+
+
+def _parse_ingredients(ingredients=None):
+    return list(map(json.loads, ingredients))
