@@ -28,7 +28,7 @@ DEBUG = True
 
 ALLOWED_HOSTS = [
     '127.0.0.1',
-    'django-env.eba-fkxsmkyc.us-west-2.elasticbeanstalk.com',
+    'rahapicbase-env.eba-qh9yumv5.us-west-2.elasticbeanstalk.com',
 ]
 
 
