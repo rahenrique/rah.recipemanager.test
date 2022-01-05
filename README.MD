@@ -32,7 +32,7 @@ $ source .venv/bin/activate
 # From this step beyond, all the commands are to be executed inside the virtual environment.
 # You can confirm that you are running in the virtual environment looking for `(.venv)` at your terminal prompt. 
 # Then, intall the dependencies:
-(.venv)$ pip install -r src/requirements.txt
+(.venv)$ pip install -r recipe_manager/requirements.txt
 
 # To initialize the application, use the manage.py from Django:
 (.venv)$ python3 recipe_manager/manage.py runserver
