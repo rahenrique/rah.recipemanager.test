@@ -6,11 +6,7 @@ from common.services import convert_unit
 
 class ServiceTests(TestCase):
 
-    def test_conversion_of_measurement_unit(self):
-        """
-        A conversion from one unit from another should return a new unit instance
-        with the converted value. Ex: 1 Kg -> 1000 g
-        """
+    def test_conversion_of_measurement_unit_should_return_new_unit(self):
         measurement_in_kilograms = Kilogram(1)
         measurement_in_liters = Liter(1)
 
@@ -21,10 +17,6 @@ class ServiceTests(TestCase):
         self.assertEquals(measurement_in_grams.value, 1000)
         self.assertEquals(measurement_in_centiliters.value, 100)
 
-    def test_conversion_between_different_type_of_measurement_units_raise_exception(self):
-        """
-        A conversion from one unit type (ex: Mass) from another unit type (ex: Volume)
-        should raise a TypeError
-        """
+    def test_conversion_between_different_type_of_measurement_units_should_raise_error(self):
         with self.assertRaises(TypeError):
             convert_unit(Kilogram(1), Liter)
