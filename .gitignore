@@ -6,7 +6,7 @@ __pycache__/
 
 #Environment
 *venv/
-.venv/
+.venv
 .env.development
 
 #Code editors
