@@ -1,7 +1,7 @@
 Recipe Manager
 ==============
 
-Recipe manager in Python, using Django. This application is part of a test for Apicbase.
+Recipe manager in Python, using Django. This codebase was used as an application test.
 
 ## Starting
 
