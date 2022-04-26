@@ -45,7 +45,7 @@ def create(request):
             ingredient.cost_per_base_amount = cost_per_base_amount
             ingredient.save()
 
-            return redirect('ingredients:detail', pk=ingredient.id)
+            return redirect('ingredients:detail', pk=ingredient.pk)
 
         except Exception as e:
             return render(request, 'ingredients/create_form.html', {'error': str(e)})
