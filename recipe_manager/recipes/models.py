@@ -1,6 +1,8 @@
 from django.contrib import admin
 from django.contrib.auth.models import User
 from django.db import models
+
+from common.constants import DEFAULT_CURRENCY
 from common.services import convert_unit, value_to_unit, symbol_to_unit
 
 from ingredients.models import Ingredient, MeasurementUnits
@@ -33,7 +35,7 @@ class Recipe(models.Model):
     @admin.display(description='Total cost')
     def formatted_total_cost(self) -> str:
         """Returns the formatted total recipe cost."""
-        return "€ {:.2f}".format(self.total_cost())
+        return "{} {:.2f}".format(DEFAULT_CURRENCY['SIGN'], self.total_cost())
 
 
 class RecipeIngredient(models.Model):
@@ -66,4 +68,4 @@ class RecipeIngredient(models.Model):
 
     def formatted_cost(self) -> str:
         """Returns the formatted ingredient cost for this recipe."""
-        return "€ {:.2f}".format(self.cost())
+        return "{} {:.2f}".format(DEFAULT_CURRENCY['SIGN'], self.cost())

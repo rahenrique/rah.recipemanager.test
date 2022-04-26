@@ -1,6 +1,7 @@
 from django.contrib import admin
 from django.db import models
 
+from common.constants import DEFAULT_CURRENCY
 from common.models import Centiliter, Gram, Kilogram, Liter
 
 
@@ -33,12 +34,12 @@ class Ingredient(models.Model):
         """
         Returns the ingredient cost for the minimum amount.
         Example:
-        If the 'buying amount' is 2kg, and the 'cost per buying amount' is 1.00 EUR,
-        the 'minimal cost' will return 0.50 EUR
+        If the 'buying amount' is 2kg, and the 'cost per buying amount' is 1.00 $,
+        the 'minimal cost' will return 0.50 $
         """
         return float(self.cost_per_base_amount) / self.base_amount
 
     @admin.display(description='Cost/amount')
     def formatted_cost(self) -> str:
         """Returns the formatted ingredient cost."""
-        return f'{self.cost_per_base_amount} EUR / {self.base_amount} {self.base_measurement_unit}'
+        return f'{self.cost_per_base_amount} {DEFAULT_CURRENCY["CODE"]} / {self.base_amount} {self.base_measurement_unit}'
