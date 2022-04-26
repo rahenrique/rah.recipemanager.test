@@ -23,15 +23,15 @@ $ git clone https://github.com/rahenrique/rah.recipemanager.test.git
 $ pyenv install 3.10.0
 
 # Run the following inside the root folder of the cloned repository, to create a virtual environment for the application:
-$ pyenv virtualenv 3.10.0 python_310
+$ pyenv virtualenv 3.10.0 rah.recipemanager
 
 # After creating the virtual environment, we need to define it as the local virtualenv
 # This ensures the virtualenv is automatically activated on entering the project folder:
-$ pyenv local python_310
+$ pyenv local rah.recipemanager
 
 # Let's create a symlink for the virtuanenv:
 # (It's necessary so Poetry can use this virtualenv easily)
-$ ln -s ~/.pyenv/versions/python_310/ ./.venv
+$ ln -s ~/.pyenv/versions/rah.recipemanager/ ./.venv
 
 # Configure Poetry to not create a new virtualenv, using the local virtualenv instead:
 $ poetry config virtualenvs.create false
