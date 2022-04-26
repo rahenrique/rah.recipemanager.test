@@ -10,29 +10,35 @@ Recipe manager in Python, using Django. This codebase was used as an application
 Before starting, you will need to have the following tools installed on your machine:
 * [Git](https://git-scm.com)
 * [Python 3](https://www.python.org/)
-* [PIP](https://pip.pypa.io/en/stable/)
-<!-- * [Docker](https://www.docker.com/) -->
-<!-- * [Docker Compose](https://docs.docker.com/compose/install/) -->
+* [pyenv](https://github.com/pyenv/pyenv)
+* [Poetry](https://python-poetry.org/)
 
 ### Installation (Local Development)
 
 ```bash
 # Clone this repository:
-$ git clone https://github.com/rahenrique/rah.apicbase.test.git
+$ git clone https://github.com/rahenrique/rah.recipemanager.test.git
 
-# If necessary, run the following command to install virtualenv:
-$ pip install virtualenv
+# Install Python v3.10 with pyenv:
+$ pyenv install 3.10.0
 
 # Run the following inside the root folder of the cloned repository, to create a virtual environment for the application:
-$ python3 -m venv .venv
+$ pyenv virtualenv 3.10.0 rah.recipemanager
 
-# After creating the environment, we need to activate it by running:
-$ source .venv/bin/activate
+# After creating the virtual environment, we need to define it as the local virtualenv
+# This ensures the virtualenv is automatically activated on entering the project folder:
+$ pyenv local rah.recipemanager
 
-# From this step beyond, all the commands are to be executed inside the virtual environment.
-# You can confirm that you are running in the virtual environment looking for `(.venv)` at your terminal prompt. 
-# Then, intall the dependencies:
-(.venv)$ pip install -r recipe_manager/requirements.txt
+# Let's create a symlink for the virtuanenv:
+# (It's necessary so Poetry can use this virtualenv easily)
+$ ln -s ~/.pyenv/versions/rah.recipemanager/ ./.venv
+
+# Configure Poetry to not create a new virtualenv, using the local virtualenv instead:
+$ poetry config virtualenvs.create false
+$ poetry config virtualenvs.in-project true
+
+# Install all dependencies:
+$ poetry install
 
 # To initialize the application, use the manage.py from Django:
 (.venv)$ python3 recipe_manager/manage.py runserver
@@ -66,5 +72,5 @@ To run the unit tests provided with the application, run the following command o
 
 ```bash
 # This will run all tests inside the Django apps
-(.venv)$ python3 recipe_manager/manage.py test
+(.venv)$ python3 recipe_manager/manage.py test recipe_manager/ --verbosity=2
 ```
