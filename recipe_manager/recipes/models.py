@@ -28,7 +28,6 @@ class Recipe(models.Model):
         """Returns the total recipe cost, based on amount and cost of all ingredients."""
         cost = 0
         recipeingredient: RecipeIngredient
-        # for recipeingredient in self.recipeingredient_set.all():
         for recipeingredient in self.recipeingredient.all():
             cost += recipeingredient.cost()
         return cost
