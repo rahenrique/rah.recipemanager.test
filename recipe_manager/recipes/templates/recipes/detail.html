@@ -21,7 +21,7 @@
         </tr>
     </thead>
     <tbody>
-        {% for recipeingredient in recipe.recipeingredient_set.all %}
+        {% for recipeingredient in recipe.recipeingredient.all %}
         <tr>
             <td>
                 <a href="{% url 'ingredients:detail' recipeingredient.ingredient.id %}">{{ recipeingredient.ingredient.name }}</a><br>

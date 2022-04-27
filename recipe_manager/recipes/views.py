@@ -50,7 +50,7 @@ def create(request):
                     measurement_unit=one_ingredient['unit']
                 )
 
-            return redirect('recipes:detail', pk=recipe.id)
+            return redirect('recipes:detail', pk=recipe.pk)
 
         except Exception as e:
             return render(request, 'recipes/create_form.html', {

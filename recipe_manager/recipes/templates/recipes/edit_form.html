@@ -61,7 +61,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        {% for recipeingredient in recipe.recipeingredient_set.all %}
+                        {% for recipeingredient in recipe.recipeingredient.all %}
                         <tr data-id="{{ recipeingredient.ingredient.id }}">
                             <td>
                                 <input type="hidden" name="ingredients"

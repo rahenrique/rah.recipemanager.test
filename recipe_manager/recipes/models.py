@@ -28,7 +28,7 @@ class Recipe(models.Model):
         """Returns the total recipe cost, based on amount and cost of all ingredients."""
         cost = 0
         recipeingredient: RecipeIngredient
-        for recipeingredient in self.recipeingredient_set.all():
+        for recipeingredient in self.recipeingredient.all():
             cost += recipeingredient.cost()
         return cost
 
@@ -45,8 +45,8 @@ class RecipeIngredient(models.Model):
         verbose_name_plural = 'Recipe Ingredients'
         constraints = [models.UniqueConstraint(fields=['recipe', 'ingredient'], name="recipe_ingredient")]
 
-    recipe = models.ForeignKey(Recipe, on_delete=models.CASCADE)
-    ingredient = models.ForeignKey(Ingredient, on_delete=models.CASCADE)
+    recipe = models.ForeignKey(Recipe, on_delete=models.CASCADE, related_name='recipeingredient')
+    ingredient = models.ForeignKey(Ingredient, on_delete=models.CASCADE, related_name='recipeingredient')
     amount = models.FloatField()
     measurement_unit = models.CharField(
         max_length=2, choices=MeasurementUnits.choices)
