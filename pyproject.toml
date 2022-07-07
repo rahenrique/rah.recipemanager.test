@@ -6,7 +6,7 @@ authors = ["Rafael Henrique <rafael@rah.com.br>"]
 
 [tool.poetry.dependencies]
 python = "^3.10"
-Django = "3.2.11"
+Django = "3.2.14"
 
 [tool.poetry.dev-dependencies]
 
